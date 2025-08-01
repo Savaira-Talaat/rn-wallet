@@ -15,6 +15,19 @@ const PORT = process.env.PORT || 5001;
 
 app.use("/api/transactions", transactionsRoute);
 
+app._router.stack.forEach((middleware) => {
+  if (middleware.route) {
+    console.log(`Route registered: ${middleware.route.path}`);
+  } else if (middleware.name === 'router') {
+    middleware.handle.stack.forEach((handler) => {
+      if (handler.route) {
+        console.log(`Route registered: ${handler.route.path}`);
+      }
+    });
+  }
+});
+
+
 initDB().then(() => {
     app.listen(PORT, () => {
         console.log("Server is up and runnign on PORT:", PORT);
