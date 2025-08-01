@@ -18,6 +18,7 @@ app.use("/api/transactions", transactionsRoute);
 initDB().then(() => {
     app.listen(PORT, () => {
         console.log("Server is up and runnign on PORT:", PORT);
+        console.log("API version X loaded");
     });
 });
     
